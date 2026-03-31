@@ -3,150 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Message For You</title>
+    <title>A Special Question</title>
     <style>
-        :root {
-            --pink: #ffafbd;
-            --dark-pink: #ff4b2b;
-            --bg: #ffeef2;
-        }
-
         body {
-            background-color: var(--bg);
-            background-image: radial-gradient(#ffc1cc 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-color: #ffdae0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: 'Comic Sans MS', 'cursive', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
         }
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        .container {
+            background-color: rgba(255, 255, 255, 0.4);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
-            max-width: 450px;
+            max-width: 400px;
             width: 90%;
-            border: 3px solid #ff8fa3;
             position: relative;
-            z-index: 5;
         }
 
-        /* Slide Management */
-        .slide { display: none; }
-        .active { display: block; animation: fadeIn 0.5s ease-in; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        h1 {
+            color: #4a4a4a;
+            font-size: 2.5rem;
+            margin-bottom: 5px;
         }
 
-        h1 { color: #d63384; font-size: 1.8rem; }
-        p { color: #555; line-height: 1.5; }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
 
-        .character { width: 120px; margin-bottom: 20px; }
+        .speech-bubble {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 20px;
+            border: 2px solid #333;
+            position: relative;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
 
-        .btn-container {
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 20px;
+            border-width: 15px 15px 0 0;
+            border-style: solid;
+            border-color: white transparent transparent transparent;
+        }
+
+        .buttons {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 20px;
-            height: 50px;
+            align-items: center;
+            min-height: 100px;
         }
 
-        button {
-            padding: 10px 25px;
-            border-radius: 15px;
+        #yesBtn {
+            background-color: #333;
+            color: white;
             border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.2rem;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: 0.2s;
+            transition: transform 0.2s;
+            z-index: 10;
         }
 
-        .btn-yes { background: #4caf50; color: white; }
-        .btn-no { background: #ff4b5c; color: white; position: absolute; }
-        .btn-next { background: #d63384; color: white; margin-top: 20px; }
+        #noBtn {
+            background-color: #fce4ec;
+            color: #4a4a4a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            position: absolute;
+            transition: all 0.2s ease;
+        }
 
-        /* Scrapbook Styles */
-        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        .photo-grid img { width: 100%; border-radius: 10px; border: 4px solid #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .letter { background: #fff9f0; padding: 15px; border-left: 5px solid #ff8fa3; text-align: left; font-style: italic; }
-        .bouquet { font-size: 4rem; display: block; margin: 10px 0; }
+        .shy-text {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: #888;
+        }
 
+        /* Success Screen Styles */
+        .hidden { display: none !important; }
+        
+        .success-img {
+            width: 200px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <div class="card slide active" id="slide1">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpwaG5xZzZqZzRyc2lyZzRyc2lyZzRyc2lyZzRyc2lyZzRyc2lyZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" class="character">
-        <h1>Hey [Name]! 💖</h1>
-        <p>I have something important to ask you...</p>
-        <div class="btn-container">
-            <button class="btn-yes" onclick="nextSlide(2)">YES</button>
-            <button class="btn-no" id="noBtn">NO</button>
+    <div class="container" id="mainCard">
+        <h1>Hey Siphesihle 💖</h1>
+        <p class="subtitle">I has a question...</p>
+
+        <div class="speech-bubble">
+            babe, will you do me the honor to be my boyfriend?
         </div>
-    </div>
 
-    <div class="card slide" id="slide2">
-        <h1>OMG, YOU SAID YES! 🎉</h1>
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpwaG5xZzZqZzRyc2lyZzRyc2lyZzRyc2lyZzRyc2lyZzRyc2lyZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KztT2c4u8mYYUiMKdJ/giphy.gif" class="character">
-        <p>I'm the luckiest person in the world!</p>
-        <button class="btn-next" onclick="nextSlide(3)">See my surprise 💌</button>
-    </div>
-
-    <div class="card slide" id="slide3">
-        <h1>Forever Together</h1>
-        <div class="photo-grid">
-            <img src="https://via.placeholder.com/150" alt="Us 1">
-            <img src="https://via.placeholder.com/150" alt="Us 2">
+        <div class="buttons">
+            <button id="yesBtn">Yes 💖</button>
+            <button id="noBtn">No</button>
         </div>
-        <p>"We've shared so many memories, and I can't wait for more."</p>
-        <button class="btn-next" onclick="nextSlide(4)">Next ❤️</button>
+
+        <p class="shy-text">The No button is very shy.</p>
     </div>
 
-    <div class="card slide" id="slide4">
-        <h1>Words from my heart ✍️</h1>
-        <div class="letter">
-            My love,<br><br>
-            Every day with you feels brighter. You are my favorite place to return to. <br><br>
-            I love you so much!
-        </div>
-        <button class="btn-next" onclick="nextSlide(5)">One last thing... 💐</button>
-    </div>
-
-    <div class="card slide" id="slide5">
-        <h1>Flowers for you</h1>
-        <span class="bouquet">💐🌷🌹</span>
-        <p>I'll always try to make you smile.</p>
-        <p><strong>I love you!</strong></p>
+    <div class="container hidden" id="successCard">
+        <h1>YAAAY! 💖</h1>
+        <p>I knew you would press yes!!
+		love you baby</p>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpwaG5xZzZqZzRyc2lyZzRyc2lyZzRyc2lyZzRyc2lyZzRyc2lyZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Cat" class="success-img">
     </div>
 
     <script>
         const noBtn = document.getElementById('noBtn');
-        let currentSlide = 1;
+        const yesBtn = document.getElementById('yesBtn');
+        const mainCard = document.getElementById('mainCard');
+        const successCard = document.getElementById('successCard');
 
-        // "No" Button Running Logic
-        noBtn.addEventListener('mouseover', moveNoButton);
-        noBtn.addEventListener('click', moveNoButton);
+        let yesScale = 1;
+        let noClicks = 0;
 
-        function moveNoButton() {
+        // Make the No button move away on hover
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        });
+
+        // Also move it on click (for mobile users)
+        noBtn.addEventListener('click', () => {
+            noClicks++;
+            yesScale += 0.5;
+            yesBtn.style.transform = `scale(${yesScale})`;
+            
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
-        }
+        });
 
-        // Navigation Logic
-        function nextSlide(slideNumber) {
-            document.querySelector('.slide.active').classList.remove('active');
-            document.getElementById('slide' + slideNumber).classList.add('active');
-        }
+        // Success Action
+        yesBtn.addEventListener('click', () => {
+            mainCard.classList.add('hidden');
+            successCard.classList.remove('hidden');
+        });
     </script>
 </body>
 </html>
